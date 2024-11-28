@@ -16,6 +16,8 @@ paths:
   /hello:
     get:
       tags: []
+      security:
+        - AppCheck: []
       responses:
         "200":
           description: OK
@@ -27,16 +29,11 @@ paths:
                 message: Hello, World!
         "401":
           description: Unauthorized
-      parameters:
-        - in: header
-          name: X-Firebase-AppCheck
-          schema:
-            type: string
-          required: true
-          description: Firebase App Check Token
+      parameters: []
     post:
       tags: []
       security:
+        - AppCheck: []
         - AuthBearer: []
       responses:
         "200":
@@ -49,13 +46,7 @@ paths:
                 message: Hello, John!
         "401":
           description: Unauthorized
-      parameters:
-        - in: header
-          name: X-Firebase-AppCheck
-          schema:
-            type: string
-          required: true
-          description: Firebase App Check Token
+      parameters: []
       requestBody:
         description: Greeting Message
         content:
@@ -76,3 +67,8 @@ components:
       type: http
       scheme: bearer
       description: Bearer Access Token for Authorization
+    AppCheck:
+      type: apiKey
+      in: header
+      name: X-Firebase-AppCheck
+      description: Firebase App Check Token
