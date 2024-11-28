@@ -10,7 +10,7 @@ servers:
     description: Staging Server
   - url: https://p2hacks2024-test-api-dev-993119829902.asia-northeast1.run.app
     description: Development Server
-  - url: http://localhost:8081
+  - url: http://localhost:8080
     description: Local Server
 paths:
   /hello:
