@@ -1,16 +1,16 @@
-openapi: "3.1.1"
+openapi: "3.0.3"
 info:
   title: Greeting API
   description: A short description of API.
   version: 1.0.0
 servers:
-  - url: https://api.greeting.kantacky.com/v1
+  - url: https://p2hacks2024-test-api-993119829902.asia-northeast1.run.app
     description: Production Server
-  - url: https://stg.api.greeting.kantacky.com/v1
+  - url: https://p2hacks2024-test-api-stg-993119829902.asia-northeast1.run.app
     description: Staging Server
-  - url: https://dev.api.greeting.kantacky.com/v1
+  - url: https://p2hacks2024-test-api-dev-993119829902.asia-northeast1.run.app
     description: Development Server
-  - url: http://localhost:8081/v1
+  - url: http://localhost:8081
     description: Local Server
 paths:
   /hello:
@@ -25,7 +25,15 @@ paths:
                 $ref: "#/components/schemas/Greeting"
               example:
                 message: Hello, World!
-      parameters: []
+        "401":
+          description: Unauthorized
+      parameters:
+        - in: header
+          name: X-Firebase-AppCheck
+          schema:
+            type: string
+          required: true
+          description: Firebase App Check Token
     post:
       tags: []
       security:
@@ -41,7 +49,13 @@ paths:
                 message: Hello, John!
         "401":
           description: Unauthorized
-      parameters: []
+      parameters:
+        - in: header
+          name: X-Firebase-AppCheck
+          schema:
+            type: string
+          required: true
+          description: Firebase App Check Token
       requestBody:
         description: Greeting Message
         content:
