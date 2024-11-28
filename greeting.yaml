@@ -29,6 +29,12 @@ paths:
                 message: Hello, World!
         "401":
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                message: Unauthorized
       parameters: []
     post:
       tags: []
@@ -46,6 +52,20 @@ paths:
                 message: Hello, John!
         "401":
           description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                message: Unauthorized
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+              example:
+                message: Internal Server Error
       parameters: []
       requestBody:
         description: Greeting Message
@@ -58,6 +78,11 @@ paths:
 components:
   schemas:
     Greeting:
+      type: object
+      properties:
+        message:
+          type: string
+    Error:
       type: object
       properties:
         message:
