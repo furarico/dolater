@@ -15,7 +15,6 @@ servers:
 paths:
   /hello:
     get:
-      tags: []
       security:
         - AppCheck: []
       responses:
@@ -28,16 +27,8 @@ paths:
               example:
                 message: Hello, World!
         "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                message: Unauthorized
-      parameters: []
+          $ref: "#/components/responses/Unauthorized"
     post:
-      tags: []
       security:
         - AppCheck: []
         - AuthBearer: []
@@ -51,22 +42,9 @@ paths:
               example:
                 message: Hello, John!
         "401":
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                message: Unauthorized
+          $ref: "#/components/responses/Unauthorized"
         "500":
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Error"
-              example:
-                message: Internal Server Error
-      parameters: []
+          $ref: "#/components/responses/InternalServerError"
       requestBody:
         description: Greeting Message
         content:
@@ -75,18 +53,187 @@ paths:
               $ref: "#/components/schemas/Greeting"
             example:
               message: Hello, API!
+  /todos:
+    get:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    post:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      requestBody:
+        description: New Task
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+            example:
+              name: Task 1
+              status: notStarted
+              deadline: "2024-10-01T00:00:00Z"
+  /todos/{taskId}:
+    get:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+            format: uuid
+          required: true
+    patch:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Update Task
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+            example:
+              name: Task 1
+              status: notStarted
+              deadline: "2024-10-01T00:00:00Z"
+    delete:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "204":
+          description: No Content
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+            format: uuid
+          required: true
 components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Unauthorized
+    NotFound:
+      description: NotFound
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: NotFound
+    MethodNotAllowed:
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Method Not Allowed
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Internal Server Error
   schemas:
-    Greeting:
-      type: object
-      properties:
-        message:
-          type: string
     Error:
       type: object
       properties:
         message:
           type: string
+    Greeting:
+      type: object
+      properties:
+        message:
+          type: string
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        status:
+          type: string
+          enum: [notStarted, inProgress, done]
+        deadline:
+          type: string
+          format: date-time
   securitySchemes:
     AuthBearer:
       type: http
