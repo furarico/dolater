@@ -175,6 +175,32 @@ paths:
             type: string
             format: uuid
           required: true
+  /fcmtoken:
+    post:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "204":
+          description: No Content
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+              required:
+                - token
+                - timestamp
 components:
   responses:
     Unauthorized:
