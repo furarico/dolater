@@ -1,0 +1,31 @@
+openapi: "3.0.3"
+info:
+  title: Task Flusher Internal API
+  description: A short description of API.
+  version: 1.0.0
+servers:
+  - url: https://api.internal.task-flusher.kantacky.com
+    description: Production Server
+  - url: https://stg.api.internal.task-flusher.kantacky.com
+    description: Staging Server
+  - url: https://dev.api.internal.task-flusher.kantacky.com
+    description: Development Server
+  - url: http://localhost:8080
+    description: Local Server
+paths:
+components:
+  responses:
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Internal Server Error
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string

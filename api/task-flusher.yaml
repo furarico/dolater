@@ -1,0 +1,65 @@
+openapi: "3.0.3"
+info:
+  title: Task Flusher API
+  description: A short description of API.
+  version: 1.0.0
+servers:
+  - url: https://api.task-flusher.kantacky.com
+    description: Production Server
+  - url: https://stg.api.task-flusher.kantacky.com
+    description: Staging Server
+  - url: https://dev.api.task-flusher.kantacky.com
+    description: Development Server
+  - url: http://localhost:8080
+    description: Local Server
+paths:
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Unauthorized
+    NotFound:
+      description: NotFound
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: NotFound
+    MethodNotAllowed:
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Method Not Allowed
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Internal Server Error
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+  securitySchemes:
+    AuthBearer:
+      type: http
+      scheme: bearer
+      description: Bearer Access Token for Authorization
+    AppCheck:
+      type: apiKey
+      in: header
+      name: X-Firebase-AppCheck
+      description: Firebase App Check Token
