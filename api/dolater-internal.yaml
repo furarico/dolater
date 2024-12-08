@@ -1,14 +1,14 @@
 openapi: "3.0.3"
 info:
-  title: Task Flusher Internal API
-  description: A short description of API.
+  title: Do Later Internal API
+  description: Do Later Internal API
   version: 1.0.0
 servers:
-  - url: https://api.internal.task-flusher.kantacky.com
+  - url: https://api.internal.dolater.kantacky.com
     description: Production Server
-  - url: https://stg.api.internal.task-flusher.kantacky.com
+  - url: https://stg.api.internal.dolater.kantacky.com
     description: Staging Server
-  - url: https://dev.api.internal.task-flusher.kantacky.com
+  - url: https://dev.api.internal.dolater.kantacky.com
     description: Development Server
   - url: http://localhost:8080
     description: Local Server

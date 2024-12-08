@@ -1,7 +1,7 @@
 openapi: "3.0.3"
 info:
-  title: Greeting API
-  description: A short description of API.
+  title: P2HACKS2024 Test API
+  description: P2HACKS2024 Test API
   version: 1.0.0
 servers:
   - url: https://p2hacks2024-test-api-993119829902.asia-northeast1.run.app
