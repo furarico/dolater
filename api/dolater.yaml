@@ -172,7 +172,7 @@ paths:
         - $ref: "#/components/parameters/id"
       responses:
         200:
-          $ref: "#/components/schemas/TaskPoolOK"
+          $ref: "#/components/responses/TaskPoolOK"
         401:
           $ref: "#/components/responses/Unauthorized"
         404:
@@ -312,27 +312,15 @@ paths:
         500:
           $ref: "#/components/responses/InternalServerError"
   /fcm/token:
-    post:
-      summary: Post FCM Token
-      description: Post Firebase Cloud Messaging registration token
-      operationId: postFCMToken
+    patch:
+      summary: Upsert FCM Token
+      description: Upsert Firebase Cloud Messaging registration token
+      operationId: upsertFCMToken
       security:
         - AppCheck: []
         - AuthBearer: []
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                token:
-                  type: string
-                timestamp:
-                  type: string
-                  format: date-time
-              required:
-                - token
-                - timestamp
+        $ref: "#/components/requestBodies/UpsertFCMToken"
       responses:
         204:
           $ref: "#/components/responses/NoContent"
@@ -493,7 +481,22 @@ components:
       in: header
       name: X-Firebase-AppCheck
       description: Firebase App Check Token
-  requestBodies: []
+  requestBodies:
+    UpsertFCMToken:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              token:
+                type: string
+              timestamp:
+                type: string
+                format: date-time
+            required:
+              - token
+              - timestamp
   responses:
     UserOK:
       description: OK
