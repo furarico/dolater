@@ -463,7 +463,6 @@ components:
           $ref: "#/components/schemas/User"
       required:
         - id
-        - owner
     Task:
       type: object
       properties:
