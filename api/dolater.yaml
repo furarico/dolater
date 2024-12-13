@@ -453,6 +453,7 @@ components:
           enum:
             - active
             - archived
+            - bin
             - pending
       required:
         - id
