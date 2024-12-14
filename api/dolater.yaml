@@ -425,7 +425,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/emoji"
+              $ref: "#/components/schemas/NotifyTaskInput"
       responses:
         204:
           $ref: "#/components/responses/NoContent"
@@ -617,7 +617,7 @@ components:
         - id
         - title
         - createdAt
-    emoji:
+    NotifyTaskInput:
       type: object
       properties:
         emoji:
