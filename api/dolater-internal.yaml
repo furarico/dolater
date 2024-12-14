@@ -13,8 +13,22 @@ servers:
   - url: http://localhost:8080
     description: Local Server
 paths:
+  /checkCapacity:
+    post:
+      tags:
+        - task
+      summary: Check Capacity
+      description: Check capacity of the pool
+      operationId: checkCapacity
+      responses:
+        204:
+          $ref: "#/components/responses/NoContent"
+        500:
+          $ref: "#/components/responses/InternalServerError"
 components:
   responses:
+    NoContent:
+      description: No Content
     InternalServerError:
       description: Internal Server Error
       content:
