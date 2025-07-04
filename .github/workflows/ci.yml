@@ -24,7 +24,7 @@ jobs:
       - self-hosted
       - macOS
       - ARM64
-      - kmm24-fun
+      - tartelet
     timeout-minutes: 30
     steps:
       - name: Checkout
