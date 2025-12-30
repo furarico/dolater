@@ -15,102 +15,6 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## iOS
 
-### ios gym_development
-
-```sh
-[bundle exec] fastlane ios gym_development
-```
-
-Gym Development
-
-### ios gym_adhoc
-
-```sh
-[bundle exec] fastlane ios gym_adhoc
-```
-
-Gym AdHoc
-
-### ios gym_appstore
-
-```sh
-[bundle exec] fastlane ios gym_appstore
-```
-
-Gym AppStore
-
-### ios scan_development
-
-```sh
-[bundle exec] fastlane ios scan_development
-```
-
-Scan Development
-
-### ios distribute_firebase
-
-```sh
-[bundle exec] fastlane ios distribute_firebase
-```
-
-Distribute the app to Firebase App Distribution
-
-### ios pilot_appstore
-
-```sh
-[bundle exec] fastlane ios pilot_appstore
-```
-
-Pilot App Store
-
-### ios deliver_appstore
-
-```sh
-[bundle exec] fastlane ios deliver_appstore
-```
-
-Deliver App Store
-
-### ios reset_build_number
-
-```sh
-[bundle exec] fastlane ios reset_build_number
-```
-
-Reset Build Number
-
-### ios bump_build_number
-
-```sh
-[bundle exec] fastlane ios bump_build_number
-```
-
-Bump Build Number
-
-### ios bump_patch_version
-
-```sh
-[bundle exec] fastlane ios bump_patch_version
-```
-
-Bump Patch Version
-
-### ios bump_minor_version
-
-```sh
-[bundle exec] fastlane ios bump_minor_version
-```
-
-Bump Minor Version
-
-### ios bump_major_version
-
-```sh
-[bundle exec] fastlane ios bump_major_version
-```
-
-Bump Major Version
-
 ### ios match_development
 
 ```sh
@@ -159,29 +63,29 @@ Fetch Ad Hoc
 
 Fetch App Store
 
-### ios match_delete_development
+### ios register_a_new_device
 
 ```sh
-[bundle exec] fastlane ios match_delete_development
+[bundle exec] fastlane ios register_a_new_device
 ```
 
-Delete Development
+Register a new device
 
-### ios match_delete_adhoc
+### ios test
 
 ```sh
-[bundle exec] fastlane ios match_delete_adhoc
+[bundle exec] fastlane ios test
 ```
 
-Delete Ad Hoc
+Test
 
-### ios match_delete_appstore
+### ios beta
 
 ```sh
-[bundle exec] fastlane ios match_delete_appstore
+[bundle exec] fastlane ios beta
 ```
 
-Delete App Store
+Build and distribute to TestFlight
 
 ----
 

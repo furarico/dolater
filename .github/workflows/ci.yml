@@ -1,4 +1,5 @@
 name: CI
+
 on:
   push:
     branches:
@@ -11,12 +12,14 @@ on:
       - ready_for_review
       - reopened
       - synchronize
-  # schedule:
-  #   - cron: 0 15 * * *
+  schedule:
+    - cron: 0 15 * * *
   workflow_dispatch:
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
+
 jobs:
   test-ios-app:
     if: github.event.pull_request.draft == false
@@ -25,21 +28,20 @@ jobs:
       - macOS
       - ARM64
       - tartelet
-    timeout-minutes: 30
+    timeout-minutes: 60
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Xcode
-        run: xcodes select
-      - name: Pre-build Script
-        run: sh ./ci_scripts/ci_pre_xcodebuild.sh
-      # - name: Setup Ruby
-      #   uses: ruby/setup-ruby@v1
+        run: |
+          xcodes select
+          defaults write com.apple.dt.Xcode IDESkipPackagePluginFingerprintValidatation -bool YES
+          defaults write com.apple.dt.Xcode IDESkipMacroFingerprintValidation -bool YES
       - name: Setup Project
-        run: make install
+        run: task install
       - name: Setup Firebase
         run: echo "${{ secrets.GOOGLE_SERVICES_INFO_PLIST }}" > ./DoLater/GoogleService-Info.plist
       - name: Test
-        run: make test
+        run: task test
         env:
           SLACK_URL: ${{ secrets.SLACK_URL }}
