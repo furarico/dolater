@@ -1,5 +1,5 @@
 //
-//  TaskServiceTests.swift
+//  HTTPMetadataTests.swift
 //  DoLaterTests
 //
 //  Created by Kanta Oikawa on 12/11/24.
@@ -10,12 +10,10 @@ import Testing
 
 @testable import DoLater
 
-struct TaskServiceTests {
-    private let service = TaskService<MockEnvironment>()
-
+struct HTTPMetadataTests {
     @Test func testGetTitle() async throws {
         let url = URL(string: "https://developer.apple.com/documentation/swiftui")!
-        let title = try await service.getPageTitle(for: url)
+        let title = try await HTTPMetadata.getPageTitle(for: url)
         #expect(title == "SwiftUI | Apple Developer Documentation")
     }
 }
