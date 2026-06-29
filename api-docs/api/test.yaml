@@ -1,0 +1,272 @@
+openapi: "3.0.3"
+info:
+  title: P2HACKS2024 Test API
+  description: P2HACKS2024 Test API
+  version: 1.0.0
+servers:
+  - url: https://p2hacks2024-test-api-993119829902.asia-northeast1.run.app
+    description: Production Server
+  - url: https://p2hacks2024-test-api-stg-993119829902.asia-northeast1.run.app
+    description: Staging Server
+  - url: https://p2hacks2024-test-api-dev-993119829902.asia-northeast1.run.app
+    description: Development Server
+  - url: http://localhost:8080
+    description: Local Server
+paths:
+  /hello:
+    get:
+      security:
+        - AppCheck: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Greeting"
+              example:
+                message: Hello, World!
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+    post:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Greeting"
+              example:
+                message: Hello, John!
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      requestBody:
+        description: Greeting Message
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Greeting"
+            example:
+              message: Hello, API!
+  /todos:
+    get:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+    post:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      requestBody:
+        description: New Task
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+            example:
+              name: Task 1
+              status: notStarted
+              deadline: "2024-10-01T00:00:00Z"
+  /todos/{taskId}:
+    get:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+            format: uuid
+          required: true
+    patch:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Task"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: Update Task
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Task"
+            example:
+              name: Task 1
+              status: notStarted
+              deadline: "2024-10-01T00:00:00Z"
+    delete:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "204":
+          description: No Content
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      parameters:
+        - in: path
+          name: taskId
+          schema:
+            type: string
+            format: uuid
+          required: true
+  /fcmtoken:
+    post:
+      security:
+        - AppCheck: []
+        - AuthBearer: []
+      responses:
+        "204":
+          description: No Content
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "500":
+          $ref: "#/components/responses/InternalServerError"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                timestamp:
+                  type: string
+                  format: date-time
+              required:
+                - token
+                - timestamp
+components:
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Unauthorized
+    NotFound:
+      description: NotFound
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: NotFound
+    MethodNotAllowed:
+      description: Method Not Allowed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Method Not Allowed
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+          example:
+            message: Internal Server Error
+  schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+    Greeting:
+      type: object
+      properties:
+        message:
+          type: string
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        status:
+          type: string
+          enum: [notStarted, inProgress, done]
+        deadline:
+          type: string
+          format: date-time
+  securitySchemes:
+    AuthBearer:
+      type: http
+      scheme: bearer
+      description: Bearer Access Token for Authorization
+    AppCheck:
+      type: apiKey
+      in: header
+      name: X-Firebase-AppCheck
+      description: Firebase App Check Token
