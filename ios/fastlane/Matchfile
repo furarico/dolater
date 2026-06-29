@@ -1,0 +1,5 @@
+git_url("https://github.com/kantacky/apple-certificates.git")
+storage_mode("git")
+type("development")
+app_identifier(["com.kantacky.DoLater", "com.kantacky.DoLater.ShareExtension"])
+username("iam@kantacky.com")

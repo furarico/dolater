@@ -1,0 +1,10 @@
+scheme("DoLater")
+output_directory("./build")
+export_method("app-store")
+export_options({
+  clean: true,
+  provisioningProfiles: {
+    "com.kantacky.DoLater": "match AppStore com.kantacky.DoLater",
+    "com.kantacky.DoLater.ShareExtension": "match AppStore com.kantacky.DoLater.ShareExtension",
+  }
+})

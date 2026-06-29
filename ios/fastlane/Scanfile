@@ -1,0 +1,4 @@
+scheme("DoLater")
+devices(["iPhone 17 Pro"])
+clean(true)
+skip_testing(["DoLaterUITests"])

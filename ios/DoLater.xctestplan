@@ -1,0 +1,30 @@
+{
+  "configurations" : [
+    {
+      "id" : "E594782D-36C0-4F63-AC87-B049A179FAAA",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:DoLater.xcodeproj",
+      "identifier" : "F1773F402D04753600F162C4",
+      "name" : "DoLater"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:DoLater.xcodeproj",
+        "identifier" : "F1773F502D04753800F162C4",
+        "name" : "DoLaterTests"
+      }
+    }
+  ],
+  "version" : 1
+}
